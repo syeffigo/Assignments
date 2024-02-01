@@ -30,23 +30,25 @@ public class Assignment1 {
     private static ZonedDateTime convertUTCtoIST(ZonedDateTime utcDateTime) {
         return utcDateTime.withZoneSameInstant(ZoneId.of("Asia/Kolkata"));
     }
+
+    private static String formatZonedDateTime(ZonedDateTime zonedDateTime) {
+        return zonedDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm:ssXXX"));
+    }
+
     public static void main(String[] args) {
         
         String userInput = "29/01/2024 01:00";
 
-        
         long unixTimestamp = convertToUnixTimestamp(userInput);
         System.out.println("Unix Timestamp (Local IST): " + unixTimestamp);
 
-
         ZonedDateTime istDateTime = convertToZonedDateTime(userInput, "Asia/Kolkata");
         ZonedDateTime utcDateTime = istDateTime.withZoneSameInstant(ZoneId.of("UTC"));
-        System.out.println("Local IST Timestamp: " + istDateTime);
-        System.out.println("UTC Timestamp: " + utcDateTime);
+        System.out.println("Local IST Timestamp: " + formatZonedDateTime(istDateTime));
+        System.out.println("UTC Timestamp: " + formatZonedDateTime(utcDateTime));
 
-        
         ZonedDateTime convertedIstDateTime = convertUTCtoIST(utcDateTime);
-        System.out.println("Converted IST Timestamp: " + convertedIstDateTime);
+        System.out.println("Converted IST Timestamp: " + formatZonedDateTime(convertedIstDateTime));
     }
 
 }
